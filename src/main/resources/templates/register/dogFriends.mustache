@@ -1,0 +1,21 @@
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">id</th>
+        <th scope="col">name</th>
+        <th scope="col">age</th>
+        <th scope="col">weight(kg)</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#buntFriendsEntityList}}
+    <tr>
+        <th scope="row">{{id}}</th>
+        <td>{{name}}</td>
+        <td>{{age}}살</td>
+        <td>{{weight}}kg</td>
+    </tr>
+    {{/buntFriendsEntityList}}
+    </tbody>
+</table>
+<a href="/dogfriends/new">새 글</a>
