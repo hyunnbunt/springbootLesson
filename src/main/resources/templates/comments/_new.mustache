@@ -1,0 +1,52 @@
+<div class="card m-2" id="comments-new">
+    <div class ="card-body">
+        <!-- 댓글 작성 폼-->
+        <form>
+            <!-- 닉네임 -->
+            <div class="mb-3">
+                <label for="nickname" class="form-label">닉네임</label>
+                <input class="form-control" id="nickname" name="sss">
+            </div>
+            <!-- 댓글 -->
+            <div class="mb-3">
+                <label for="body" class="form-label">댓글</label>
+                <textarea rows="3" class="form-control" id="body"></textarea>
+            </div>
+            <!-- 전송 버튼 -->
+            <button type="button" id="comment-create-btn" class="btn btn-primary">댓글 작성</button>
+
+            <!-- 히든 인풋 -->
+            {{#article}}
+                <input type="hidden" id="new-comment-article-id" value="{{id}}">
+            {{/article}}
+            <script>
+            {
+                const commentCreateBtn = document.querySelector("#comment-create-btn");
+                commentCreateBtn.addEventListener("click", function() {
+                    console.log("버튼이 클릭되었습니다");
+                    const comment = {
+                        nickname: document.querySelector("#nickname").value,
+                        body: document.querySelector("#body").value,
+                        article_id: document.querySelector("#new-comment-article-id").value
+                    };
+                    console.log(comment);
+
+                    // fetch() - 비동기 통신을 위한 API
+                    const url = "http://localhost:8080/api/articles/" + comment.article_id + "/comments";
+                    fetch(url, {
+                        method: "POST",
+                        body: JSON.stringify(comment),
+                        headers: {
+                        "Content-Type": "application/json"
+                        }
+                    }).then(response => {
+                        const msg = (response.ok) ? "댓글이 등록되었습니다" : "댓글 등록 실패";
+                        alert(msg);
+                        window.location.reload();
+                    });
+                });
+            }
+            </script>
+        </form>
+    </div>
+</div>
